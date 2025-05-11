@@ -6,3 +6,6 @@ __pycache__/
 test.py
 *.log
 .env
+.git
+.gitignore
+README.md

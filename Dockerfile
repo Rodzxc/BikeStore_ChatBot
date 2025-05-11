@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
 
 # Copiar solo lo necesario
-COPY requirements.txt ./
+COPY requirements.txt .
 
 # Instalar dependencias del sistema (solo lo esencial)
 RUN apt-get update && apt-get install -y \
