@@ -11,13 +11,14 @@ webhook_bp = Blueprint("webhook", __name__)
 
 load_env()
 OWNER_IDS = os.environ['OWNER_IDS']
+verify_token_webhook=os.environ['VERIFY_TOKEN_WEBHOOK']
 
 paused_users= load_paused_users()
 
 @webhook_bp.route("/webhook", methods=["GET", "POST"])
 def webhook():
     if request.method == 'GET':
-        verify_token = 'michatbot_token'
+        verify_token = verify_token_webhook
         if request.args.get('hub.verify_token') == verify_token:
             return request.args.get('hub.challenge')
         return 'Token inválido', 403
