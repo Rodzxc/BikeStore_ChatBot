@@ -5,15 +5,18 @@ from config import load_env
 import os
 
 # ==== Cargar variable ====
-load_env()
-redis_uri= os.environ['REDIS_URI']
-
-# ==== Limite de consultas ====
-rate_limiter = Limiter(
-    get_remote_address,
-    storage_uri=redis_uri,
-    default_limits=["5 per minute"]
-)
+if os.getenv("FLASK_ENV") != "production":
+    redis_uri = os.environ["REDIS_URI"]
+    rate_limiter = Limiter(
+        get_remote_address,
+        storage_uri=redis_uri,
+        default_limits=["5 per minute"]
+    )
+else:
+    rate_limiter = Limiter(
+        get_remote_address,
+        default_limits=["5 per minute"]
+    )
 
 # ==== App ====
 def create_app():
