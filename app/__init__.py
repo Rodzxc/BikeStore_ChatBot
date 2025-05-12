@@ -5,6 +5,7 @@ from config import load_env
 import os
 
 # ==== Cargar variable ====
+load_env()
 if os.getenv("FLASK_ENV") != "production":
     redis_uri = os.environ["REDIS_URI"]
     rate_limiter = Limiter(
